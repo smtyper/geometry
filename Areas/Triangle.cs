@@ -14,13 +14,13 @@ public class Triangle : Shape
     public Triangle(decimal[] edges)
     {
         if (edges.Length is not 3)
-            throw new ArgumentException("Triangle must have three edges.", nameof(edges));
+            throw new ArgumentOutOfRangeException(nameof(edges), "Triangle must have three edges.");
 
         if (edges.Any(edge => edge <= 0))
             throw new ArgumentOutOfRangeException(nameof(edges), "Edge less than or equal to zero.");
 
         if (!IsCorrectEdges(edges))
-            throw new ArgumentException("The sum of two edges is less than the third", nameof(edges));
+            throw new ArgumentOutOfRangeException(nameof(edges), "The sum of two edges is less than the third.");
 
         Edges = edges;
     }
