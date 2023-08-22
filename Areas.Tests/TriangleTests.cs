@@ -4,6 +4,10 @@ namespace Areas.Tests;
 
 public class TriangleTests
 {
+    [Test, TestCaseSource(nameof(GetTriangleInitializeTestCases))]
+    public void TriangleInitializeTest(decimal[] edges) =>
+        Assert.Throws<ArgumentOutOfRangeException>(() => _ = new Triangle(edges));
+
     #region Cases
 
     [TestCase(3, 4, 5, 6)]
@@ -29,7 +33,6 @@ public class TriangleTests
     [TestCase(5, 12, 13, true)]
     [TestCase(6, 8, 10, true)]
     [TestCase(4, 7, 9, false)]
-    [TestCase(1, 8, 18, false)]
 
     #endregion
     [Test]
@@ -41,4 +44,12 @@ public class TriangleTests
 
         Assert.That(result, Is.EqualTo(isRight));
     }
+
+    private static IEnumerable<decimal[]> GetTriangleInitializeTestCases() => new[]
+    {
+        new[] { 1M, 2M },
+        new[] { 1M, 2M, 4M, 5M },
+        new[] { 1M, 4M, -8M },
+        new[] { 15M, 2M, 7M }
+    };
 }

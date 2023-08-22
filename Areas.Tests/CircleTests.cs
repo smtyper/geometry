@@ -6,6 +6,15 @@ public class CircleTests
 {
     #region Cases
 
+    [TestCase(-12)]
+
+    #endregion
+    [Test]
+    public void CircleInitializeTest(decimal radius) =>
+        Assert.Throws<ArgumentOutOfRangeException>(() => { _ = new Circle(radius); });
+
+    #region Cases
+
     [TestCase(1, 3.14)]
     [TestCase(2, 12.57)]
     [TestCase(3, 28.27)]
