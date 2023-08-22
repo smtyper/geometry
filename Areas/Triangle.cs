@@ -14,7 +14,7 @@ public class Triangle : Shape
     public Triangle(decimal[] edges)
     {
         if (edges.Length is not 3)
-            throw new ArgumentException("More than three edges of a triangle.", nameof(edges));
+            throw new ArgumentException("Triangle must have three edges.", nameof(edges));
 
         if (edges.Any(edge => edge <= 0))
             throw new ArgumentOutOfRangeException(nameof(edges), "Edge less than or equal to zero.");
