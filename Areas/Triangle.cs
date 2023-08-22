@@ -14,10 +14,13 @@ public class Triangle : Shape
     public Triangle(decimal[] edges)
     {
         if (edges.Length is not 3)
-            throw new ArgumentException("More than three edges of a triangle.");
+            throw new ArgumentException("More than three edges of a triangle.", nameof(edges));
 
         if (edges.Any(edge => edge <= 0))
             throw new ArgumentOutOfRangeException(nameof(edges), "Edge less than or equal to zero.");
+
+        if (!IsCorrectEdges(edges))
+            throw new ArgumentException("The sum of two edges is less than the third", nameof(edges));
 
         Edges = edges;
     }
@@ -45,11 +48,15 @@ public class Triangle : Shape
         }
         .Any(isRight => isRight);
 
-    private static bool IsInversePythagoreanTheorem(decimal firstLeg, decimal secondLeg, decimal hypotenuse)
+    private static bool IsCorrectEdges(decimal[] edges) => new[]
     {
-        var f = (firstLeg * firstLeg) + (secondLeg * secondLeg);
-        var h = hypotenuse * hypotenuse;
+        edges[0] < edges[1] + edges[2],
+        edges[1] < edges[2] + edges[0],
+        edges[2] < edges[0] + edges[1]
 
-        return (firstLeg * firstLeg) + (secondLeg * secondLeg) == hypotenuse * hypotenuse;
     }
+        .All(isCorrect => isCorrect);
+
+    private static bool IsInversePythagoreanTheorem(decimal firstLeg, decimal secondLeg, decimal hypotenuse) =>
+        (firstLeg * firstLeg) + (secondLeg * secondLeg) == hypotenuse * hypotenuse;
 }
